@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+
+    <div class="container">
+        <div class="row" style="margin-top:100px">
+            <div class="col-md-12">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" th:classappend="${classActiveNewAccount}? 'active'"
+                            role="tab" aria-controls="nav-home" aria-selected="true">Create New Account</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" th:classappend="${classActiveLogin}? 'active'"
+                            role="tab" aria-controls="nav-profile" aria-selected="false">Login Account</a>
+                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" th:classappend="${classActiveForgetPassword}? 'active'"
+                            role="tab" aria-controls="nav-contact" aria-selected="false">Forgot Password</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" th:classappend="${classActiveNewAccount}? 'in active'">
+                        <div class="container">
+                            <div class="row">
+                                <div class=" card col-md-8 offset-md-2">
+                                    <div class="card-body">
+                                    <div class="alert alert-info" th:if="${emailSent}">An email has been sent to the email address.Please verify.</div>
+                                        <form class="form" th:action="@{/newUser}" method="post">
+                                        <span style="color: red;" th:if="${usernameExists}">Username already exists. Choose a different one.</span>
+                                            <div class="form-group">
+                                                <input type="text" name="username" placeholder="Username"
+                                                    class="form-control">
+                                            </div>
+                                            <span style="color: red;" th:if="${emailExists}">Email already exists. Choose a different one.</span>
+                                            <div class="form-group">
+                                                <input type="email" name="email" placeholder="Email"
+                                                    class="form-control">
+                                            </div>
+                                            <input type="submit" value="Create Account" class="btn btn-danger">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" th:classappend="${classActiveLogin}? 'in active'">
+                        <div class="container">
+                            <div class="row">
+                                <div class=" card col-md-8 offset-md-2" style="border:none;">
+                                    <div class="card-body">
+                                    <div th:if="${param.error != null}" style="color:red;">Incorrect username or password.</div>
+                                        <form class="form" th:action="@{/login}" method="post">
+                                            <div class="form-group">
+                                                <input type="email" name="email" placeholder="Email"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" name="password" placeholder="Password"
+                                                    class="form-control">
+                                            </div>
+                                            <input type="submit" value="Login Account" class="btn btn-danger">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" th:classappend="${classActiveForgetPassword}? 'in active'">
+                        <div class="container">
+                            <div class="row">
+                                <div class=" card col-md-8 offset-md-2" style="border:none;">
+                                    <div class="card-body">
+                                    <div th:if="${emailNotExist}" class="alert alert-danger">Email doesn't exist.</div>
+									<div th:if="${forgetPasswordEmailSent}" class="alert alert-success">Email sent.</div>
+                                        <form class="form" th:action="@{/forgetPassword}" method="post">
+                                        
+                                            <div class="form-group">
+                                                <input type="email" name="email" placeholder="Email"
+                                                    class="form-control">
+                                            </div>
+                                            <input type="submit" value="Reset Password" class="btn btn-danger">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>

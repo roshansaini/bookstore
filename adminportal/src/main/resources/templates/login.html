@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	
+<div class="container-fluid">
+		<h5 class="text-center">Welcome to Bookstore Admin Portal	.</h5>
+		<hr />		
+		<div class="row">
+			<div class=" card-body col-md-6 offset-md-3">
+				<div class="bg-danger" th:if="${param.error}">Invalid username
+					and password.</div>
+				<div class="bg-danger" th:if="${param.logout}">You have been
+					logged out.</div>
+				<form class="form" th:action="@{/login}" method="post">
+					<h2 class="card-header">Admin Login</h2>
+					<div class="form-group">
+						<input	type="text" class="form-control" placeholder="Username" name="username" id="username" required />
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="Password" name="password" required/>
+					</div>
+					<input class="btn btn-primary form-control" type="submit" value="Login">
+						
+				</form>
+			</div>
+		</div>
+	</div>
+
+	
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>
